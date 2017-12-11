@@ -14,6 +14,7 @@ class App extends Component {
     };
     this.addFish = this.addFish.bind(this);
     this.loadSamples = this.loadSamples.bind(this);
+    this.addToOrder = this.addToOrder.bind(this);
   }
 
   addFish(fish) {
@@ -38,7 +39,7 @@ class App extends Component {
 
   addToOrder(key) {
     // take a copy of our state
-    const order ={...this.state.order;}
+    const order ={...this.state.order}
     // update or add the new number of fish ordered
     order[key] = order[key] + 1 || 1;
     //update our state
