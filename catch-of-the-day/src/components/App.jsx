@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from './Header';
 import Order from './Order';
 import Inventory from './Inventory';
+import sampleFishes from '../sample-fishes';
 
 class App extends Component {
   constructor() {
@@ -10,29 +11,41 @@ class App extends Component {
       fishes: {},
       order: {}
     };
+    this.addFish = this.addFish.bind(this);
+    this.loadSamples = this.loadSamples.bind(this);
   }
 
   addFish(fish) {
     // update our state
     // the three dots are the spread operator
-    // which takes every item from the 
+    // which takes every item from the the object passrd in
+    // amd makes a copy of it
     const fishes = {...this.state.fishes};
     // add in our new fish
     const timeStamp = Date.now();
     fishes[`fish-${timeStamp}`] = fish;
     // set state
+    // this.setState({ fishes: fishes }) same as doing what's done below
+    this.setState({ fishes })
+  }
+
+  loadSamples() {
+    this.setState({
+      fishes: sampleFishes
+    });
   }
 
   render() {
     return (
       <div className="catch-of-the-day">
         <div className="menu">
-          <Header 
-            tagline="Fresh Seafood Market"
-          />
+          <Header tagline="Fresh Seafood Market" />
         </div>
         <Order />
-        <Inventory />
+        <Inventory 
+          addFish={this.addFish}
+          loadSamples={this.loadSamples} 
+        />
       </div>
     )
   }

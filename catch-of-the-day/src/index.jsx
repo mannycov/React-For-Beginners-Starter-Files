@@ -1,5 +1,5 @@
 // let's go!
-import React, { Component } from 'react';
+import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter, Match, Miss } from 'react-router';
 import './css/style.css';
