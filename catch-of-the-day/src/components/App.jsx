@@ -4,6 +4,7 @@ import Order from './Order';
 import Inventory from './Inventory';
 import Fish from './Fish';
 import sampleFishes from '../sample-fishes';
+import base from '../base';
 
 class App extends Component {
   constructor() {
@@ -15,6 +16,17 @@ class App extends Component {
     this.addFish = this.addFish.bind(this);
     this.loadSamples = this.loadSamples.bind(this);
     this.addToOrder = this.addToOrder.bind(this);
+  }
+
+  componentWillMount() {
+    this.ref = base.synState(`${this.props.params.storeId}/fishes`, {
+      context: this,
+      state: 'fishes'
+    });
+  }
+
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
   }
 
   addFish(fish) {
@@ -39,7 +51,7 @@ class App extends Component {
 
   addToOrder(key) {
     // take a copy of our state
-    const order ={...this.state.order}
+    const order = {...this.state.order}
     // update or add the new number of fish ordered
     order[key] = order[key] + 1 || 1;
     //update our state
