@@ -19,6 +19,7 @@ class App extends Component {
   }
 
   componentWillMount() {
+    // this runs right before the <App> is rendered
     this.ref = base.syncState(`${this.props.params.storeId}/fishes`, {
       context: this,
       state: 'fishes'
@@ -27,6 +28,10 @@ class App extends Component {
 
   componentWillUnmount() {
     base.removeBinding(this.ref);
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    localStorage.setItem(`order-${this.props.params.storeId}`, JSON.stringify(nextState.order));
   }
 
   addFish(fish) {
@@ -80,6 +85,7 @@ class App extends Component {
         <Order 
           fishes={this.state.fishes}
           order={this.state.order}
+          param={this.props.params}
         />
         <Inventory 
           addFish={this.addFish}
