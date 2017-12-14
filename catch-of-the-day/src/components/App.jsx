@@ -16,6 +16,7 @@ class App extends Component {
     this.addFish = this.addFish.bind(this);
     this.loadSamples = this.loadSamples.bind(this);
     this.addToOrder = this.addToOrder.bind(this);
+    this.updateFish = this.updateFish.bind(this);
   }
 
   componentWillMount() {
@@ -24,6 +25,15 @@ class App extends Component {
       context: this,
       state: 'fishes'
     });
+
+    // check if there is any order in localstarage
+    const localStorageRef = localStorage.getItem(`order-${this.props.params.storeId}`);
+
+    if (localStorageRef) {
+      this.setState({
+        order: JSON.parse(localStorageRef)
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -46,6 +56,12 @@ class App extends Component {
     // set state
     // this.setState({ fishes: fishes }) same as doing what's done below
     this.setState({ fishes })
+  }
+
+  updateFish(key, updatedFish) {
+    const fishes = {...this.state.fishes}
+    fishes[key] = updatedFish;
+    this.setState({ fishes });
   }
 
   loadSamples() {
@@ -89,7 +105,9 @@ class App extends Component {
         />
         <Inventory 
           addFish={this.addFish}
-          loadSamples={this.loadSamples} 
+          loadSamples={this.loadSamples}
+          fishes={this.state.fishes} 
+          updateFish={this.updateFish}
         />
       </div>
     )
