@@ -51,7 +51,7 @@ class App extends Component {
     // the three dots are the spread operator
     // which takes every item from the the object passrd in
     // amd makes a copy of it
-    const fishes = {...this.state.fishes};
+    const fishes = {...this.state.fishes}
     // add in our new fish
     const timeStamp = Date.now();
     fishes[`fish-${timeStamp}`] = fish;
@@ -131,5 +131,9 @@ class App extends Component {
     )
   }
 }
+
+App.propTypes = {
+  params: React.PropTypes.object.isRequired
+};
 
 export default App;
